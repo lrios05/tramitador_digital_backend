@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/auth/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @GetMapping("/get")
-    public @ResponseBody ResponseEntity<String> get() {
-        return new ResponseEntity<String>("GET Response", HttpStatus.OK);
+    @GetMapping("/find/{email}")
+    public Response findByEmail(@PathVariable("email") String email) {
+        return Response.ok().setPayload(userService.findUserByEmail(email));
     }
 
     @PostMapping("/post")

@@ -13,10 +13,10 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LoginRequest {
+public class UserLoginRequest {
 
     @NotNull(message = "{constraints.NotEmpty.message}")
-    private String email;
+    private String userName;
     @NotNull(message = "{constraints.NotEmpty.message}")
     private String password;
 }

@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService{
 
             user = new User()
                     .setEmail(userDto.getEmail())
-                    .setPassword(userDto.getPassword())
+                    .setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()))
                     .setName(userDto.getName())
                     .setPaternal(userDto.getPaternal())
                     .setMaternal(userDto.getMaternal())
