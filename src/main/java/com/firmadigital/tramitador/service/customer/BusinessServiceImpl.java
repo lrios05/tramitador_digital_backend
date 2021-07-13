@@ -1,7 +1,10 @@
 package com.firmadigital.tramitador.service.customer;
 
 import com.firmadigital.tramitador.dto.mapper.BusinessMapper;
+import com.firmadigital.tramitador.dto.mapper.ServiceOfferMapper;
 import com.firmadigital.tramitador.dto.model.customer.BusinessDto;
+import com.firmadigital.tramitador.dto.model.serviceoffer.ServiceOfferDto;
+import com.firmadigital.tramitador.dto.response.Response;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
 import com.firmadigital.tramitador.exception.ExceptionType;
@@ -9,6 +12,7 @@ import com.firmadigital.tramitador.model.customer.Activity;
 import com.firmadigital.tramitador.model.customer.Business;
 import com.firmadigital.tramitador.model.customer.BusinessType;
 import com.firmadigital.tramitador.model.customer.Customer;
+import com.firmadigital.tramitador.model.serviceoffer.ServiceOffer;
 import com.firmadigital.tramitador.repository.customer.ActivityRepository;
 import com.firmadigital.tramitador.repository.customer.BusinessRepository;
 import com.firmadigital.tramitador.repository.customer.BusinessTypeRepository;
@@ -21,10 +25,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import static com.firmadigital.tramitador.exception.EntityType.BUSINESS;
-import static com.firmadigital.tramitador.exception.EntityType.CUSTOMER;
+import static com.firmadigital.tramitador.exception.EntityType.*;
 import static com.firmadigital.tramitador.exception.ExceptionType.*;
 
 @Component
@@ -46,6 +49,17 @@ public class BusinessServiceImpl implements BusinessService {
     private ModelMapper modelMapper;
 
     @Override
+    public BusinessDto findBusinessById(Long id) {
+        Optional<Business> business = businessRepository.findById(id);
+
+        if (business.isPresent()) {
+            return modelMapper.map(business.get(), BusinessDto.class);
+        }
+
+        throw exception(BUSINESS, ENTITY_NOT_FOUND, id.toString());
+    }
+
+    @Override
     public BusinessDto findBusinessByNit(String nit) {
 
         Business business = businessRepository.findBusinessByNit(nit);
@@ -63,7 +77,7 @@ public class BusinessServiceImpl implements BusinessService {
         Business business = businessRepository.findBusinessByNit(businessDto.getNit());
 
         if (business == null) {
-            Long customerId = businessDto.getCustomerDto().getCustomerID();
+            Long customerId = businessDto.getCustomerDto().getCustomerId();
             Optional<Customer> customer = customerRepository.findById(customerId);
 
             if (customer.isPresent()) {
@@ -106,20 +120,10 @@ public class BusinessServiceImpl implements BusinessService {
         Page<Business> businessPage = businessRepository.findAll(pageable);
 
         if (businessPage.hasContent()) {
-            /*
-            Page<BusinessDto> businessDtos = businessPage.map(new Function<Business, BusinessDto>() {
-                @Override
-                public BusinessDto apply(Business business) {
-                    return BusinessMapper.toBusinessDto(business);
-                }
-            });
-            return businessDtos;
-            */
             Page<BusinessDto> businessDtos = businessPage.map(business -> {
                 return BusinessMapper.toBusinessDto(business);
             });
             return businessDtos;
-
         }
         throw exception(BUSINESS, NO_DATA_FOUND, "No existen registros");
     }

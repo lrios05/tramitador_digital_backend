@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UnitDto {
 
-    private Long uniteId;
+    private Long unitId;
     private String unit;
     private String description;
 }

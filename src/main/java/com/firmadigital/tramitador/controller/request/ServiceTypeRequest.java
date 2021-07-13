@@ -15,8 +15,8 @@ import javax.validation.constraints.NotEmpty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceTypeRequest {
 
+    private Long serviceTypeId;
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String serviceType;
-
     private String description;
 }

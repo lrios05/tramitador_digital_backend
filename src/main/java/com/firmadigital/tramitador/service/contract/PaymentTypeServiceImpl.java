@@ -1,15 +1,20 @@
 package com.firmadigital.tramitador.service.contract;
 
+import com.firmadigital.tramitador.dto.mapper.ActivityMapper;
+import com.firmadigital.tramitador.dto.mapper.PaymentTypeMapper;
 import com.firmadigital.tramitador.dto.model.contract.PaymentTypeDto;
+import com.firmadigital.tramitador.dto.model.customer.ActivityDto;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
 import com.firmadigital.tramitador.exception.ExceptionType;
 import com.firmadigital.tramitador.model.contract.PaymentType;
+import com.firmadigital.tramitador.model.customer.Activity;
 import com.firmadigital.tramitador.repository.contract.PaymentTypeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +53,14 @@ public class PaymentTypeServiceImpl implements PaymentTypeService{
 
     @Override
     public List<PaymentTypeDto> findAllPaymentTypes() {
-        return null;
+
+        List<PaymentType> paymentTypeList = paymentTypeRepository.findAll();
+        List<PaymentTypeDto> paymentTypeDtoList = new ArrayList<>();
+
+        paymentTypeList.forEach(paymentType -> {
+            paymentTypeDtoList.add(PaymentTypeMapper.toPaymentTypeDto(paymentType));
+        });
+        return paymentTypeDtoList;
     }
 
     private RuntimeException exception(EntityType entityType, ExceptionType exceptionType, String... args) {

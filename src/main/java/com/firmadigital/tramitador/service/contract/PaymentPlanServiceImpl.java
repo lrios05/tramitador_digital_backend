@@ -45,10 +45,10 @@ public class PaymentPlanServiceImpl implements PaymentPlanService{
 
         if (contract.isPresent()) {
             Optional<PaymentType> paymentType = paymentTypeRepository
-                    .findById(paymentPlanDto.getPaymentTypeDto().getTypeId());
+                    .findById(paymentPlanDto.getPaymentTypeDto().getPayTypeId());
 
             Optional<PaymentFrequency> paymentFrequency = paymentFrequencyRepository
-                    .findById(paymentPlanDto.getPaymentFrequencyDto().getPFrequencyId());
+                    .findById(paymentPlanDto.getPaymentFrequencyDto().getPaymentId());
 
             PaymentPlan paymentPlan = new PaymentPlan()
                     .setContract(contract.get())

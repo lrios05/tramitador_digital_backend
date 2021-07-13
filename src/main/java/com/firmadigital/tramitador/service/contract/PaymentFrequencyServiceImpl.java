@@ -1,17 +1,22 @@
 package com.firmadigital.tramitador.service.contract;
 
+import com.firmadigital.tramitador.dto.mapper.PaymentFrequencyMapper;
+import com.firmadigital.tramitador.dto.mapper.PaymentTypeMapper;
 import com.firmadigital.tramitador.dto.model.contract.GatherFrequencyDto;
 import com.firmadigital.tramitador.dto.model.contract.PaymentFrequencyDto;
+import com.firmadigital.tramitador.dto.model.contract.PaymentTypeDto;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
 import com.firmadigital.tramitador.exception.ExceptionType;
 import com.firmadigital.tramitador.model.contract.GatherFrequency;
 import com.firmadigital.tramitador.model.contract.PaymentFrequency;
+import com.firmadigital.tramitador.model.contract.PaymentType;
 import com.firmadigital.tramitador.repository.contract.PaymentFrequencyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +56,14 @@ public class PaymentFrequencyServiceImpl implements PaymentFrequencyService{
 
     @Override
     public List<PaymentFrequencyDto> findAllPaymentFrequencies() {
-        return null;
+
+        List<PaymentFrequency> paymentFrequencyList = paymentFrequencyRepository.findAll();
+        List<PaymentFrequencyDto> paymentFrequencyDtoList = new ArrayList<>();
+
+        paymentFrequencyList.forEach(paymentFrequency -> {
+            paymentFrequencyDtoList.add(PaymentFrequencyMapper.toPaymentFrequencyDto(paymentFrequency));
+        });
+        return paymentFrequencyDtoList;
     }
 
     private RuntimeException exception(EntityType entityType, ExceptionType exceptionType, String... args) {

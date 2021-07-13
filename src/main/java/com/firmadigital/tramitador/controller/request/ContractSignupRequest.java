@@ -29,10 +29,10 @@ public class ContractSignupRequest {
     private double totalCost;
 
     @NotEmpty(message = "{constraints.NotEmpty.message}")
-    private Long pTypeId;
+    private Long payTypeId;
 
     @NotEmpty(message = "{constraints.NotEmpty.message}")
-    private Long pFrequencyId;
+    private Long paymentId;
 
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private int payments;
@@ -41,10 +41,10 @@ public class ContractSignupRequest {
     private double amount;
 
     @NotEmpty(message = "{constraints.NotEmpty.message}")
-    private Long gFrequencyId;
+    private Long gatherId;
 
     @NotEmpty(message = "{constraints.NotEmpty.message}")
-    private Long wasteTypeId;
+    private Long wasteId;
 
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private double volume;

@@ -12,5 +12,7 @@ public interface ActivityService {
 
     ActivityDto updateActivity(ActivityDto activityDto);
 
+    List<ActivityDto> findActivityByGroup(Long id);
+
     List<ActivityDto> findAllActivities();
 }

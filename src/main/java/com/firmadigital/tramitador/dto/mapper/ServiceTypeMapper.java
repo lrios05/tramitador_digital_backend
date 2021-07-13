@@ -10,7 +10,7 @@ public class ServiceTypeMapper {
     public static ServiceTypeDto toServiceTypeDto(ServiceType serviceType){
 
         return new ServiceTypeDto()
-                .setTypeId(serviceType.getId())
+                .setServiceTypeId(serviceType.getId())
                 .setServiceType(serviceType.getServiceType())
                 .setDescription(serviceType.getDescription());
     }

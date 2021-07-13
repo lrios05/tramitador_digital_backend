@@ -10,7 +10,7 @@ public class UnitMapper {
     public static UnitDto toUnitDto(Unit unit) {
 
         return new UnitDto()
-                .setUniteId(unit.getId())
+                .setUnitId(unit.getId())
                 .setUnit(unit.getUnit())
                 .setDescription(unit.getDescription());
     }

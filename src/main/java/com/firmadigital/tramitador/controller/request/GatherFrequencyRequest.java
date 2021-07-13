@@ -15,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GatherFrequencyRequest {
 
+    private Long gatherId;
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String frequency;
 }

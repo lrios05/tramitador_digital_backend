@@ -10,7 +10,7 @@ public class CustomerMapper {
     public static CustomerDto toCustomerDto(Customer customer){
 
         return new CustomerDto()
-                .setCustomerID(customer.getId())
+                .setCustomerId(customer.getId())
                 .setCustomerCode(customer.getCustomerCode())
                 .setDni(customer.getDni())
                 .setName(customer.getName())

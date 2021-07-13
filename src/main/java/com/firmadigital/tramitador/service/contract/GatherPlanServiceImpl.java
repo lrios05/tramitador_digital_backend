@@ -45,12 +45,12 @@ public class GatherPlanServiceImpl implements GatherPlanService{
 
         if (contract.isPresent()) {
             Optional<GatherFrequency> gatherFrequency = gatherFrequencyRepository
-                    .findById(gatherPlanDto.getGatherFrequencyDto().getGFrequencyId());
+                    .findById(gatherPlanDto.getGatherFrequencyDto().getGatherId());
 
             Optional<WasteType> wasteType = wasteTypeRepository
                     .findById(gatherPlanDto.getWasteTypeDto().getWasteId());
 
-            Optional<Unit> unit = unitRepository.findById(gatherPlanDto.getUnitDto().getUniteId());
+            Optional<Unit> unit = unitRepository.findById(gatherPlanDto.getUnitDto().getUnitId());
 
             GatherPlan gatherPlan = new GatherPlan()
                     //.setContract(contract.get())

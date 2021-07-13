@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/customer")
+@CrossOrigin(origins = "*")
 public class CustomerController {
 
     @Autowired
@@ -32,15 +33,17 @@ public class CustomerController {
         return Response.ok().setPayload(customerService.findAllCustomers(pageable));
     }
 
-    @PostMapping("/signup")
-    public Response signupCustomer(@RequestBody @Valid CustomerSignupRequest customerSignupRequest){
-
-        return Response.ok().setPayload(registerCustomer(customerSignupRequest));
+    @PostMapping("/signup/{email}")
+    public Response signupCustomer(@PathVariable("email") String email,
+                                       @RequestBody @Valid CustomerSignupRequest customerSignupRequest){
+        System.out.println("Llega estito: " + customerSignupRequest.toString());
+        return Response.ok().setPayload(registerCustomer(email, customerSignupRequest));
     }
 
-    private CustomerDto registerCustomer(CustomerSignupRequest customerSignupRequest) {
+    private CustomerDto registerCustomer(String email, CustomerSignupRequest customerSignupRequest) {
 
-        UserDto userDto = userService.findById(customerSignupRequest.getUserId());
+        //UserDto userDto = userService.findById(customerSignupRequest.getUserId());
+        UserDto userDto = userService.findUserByEmail(email);
 
         CustomerDto customerDto = new CustomerDto()
                 .setDni(customerSignupRequest.getDni())

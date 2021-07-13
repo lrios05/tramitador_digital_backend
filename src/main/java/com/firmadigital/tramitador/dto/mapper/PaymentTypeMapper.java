@@ -10,7 +10,7 @@ public class PaymentTypeMapper {
     public static PaymentTypeDto toPaymentTypeDto(PaymentType paymentType) {
 
         return new PaymentTypeDto()
-                .setTypeId(paymentType.getId())
+                .setPayTypeId(paymentType.getId())
                 .setPayType(paymentType.getPayType());
     }
 }

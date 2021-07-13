@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 import static com.firmadigital.tramitador.exception.EntityType.SERVICE;
 import static com.firmadigital.tramitador.exception.EntityType.SERVICE_TYPE;
 import static com.firmadigital.tramitador.exception.ExceptionType.ENTITY_NOT_FOUND;
-import static com.firmadigital.tramitador.exception.ExceptionType.NO_DATA_FOUND;
 
 @Component
 public class ServiceOfferServiceImpl implements ServiceOfferService{
@@ -46,6 +45,14 @@ public class ServiceOfferServiceImpl implements ServiceOfferService{
     }
 
     @Override
+    public List<ServiceOfferDto> findServiceOfferByServiceTypeId(Long id) {
+        return serviceOfferRepository.findServiceOfferByServiceTypeId(id).stream().map(serviceOffer -> {
+            return ServiceOfferMapper.toServiceOfferDto(serviceOffer);
+        }).collect(Collectors.toList());
+    }
+
+
+    @Override
     public List<ServiceOfferDto> findAllServiceOffer() {
         return serviceOfferRepository.findAll().stream().map(serviceOffer -> {
             return ServiceOfferMapper.toServiceOfferDto(serviceOffer);
@@ -54,7 +61,7 @@ public class ServiceOfferServiceImpl implements ServiceOfferService{
 
     @Override
     public ServiceOfferDto createServiceOffer(ServiceOfferDto serviceOfferDto) {
-        Long serviceTypeId = serviceOfferDto.getServiceTypeDto().getTypeId();
+        Long serviceTypeId = serviceOfferDto.getServiceTypeDto().getServiceTypeId();
         Optional<ServiceType> serviceType = serviceTypeRepository.findById(serviceTypeId);
 
         if (serviceType.isPresent()) {

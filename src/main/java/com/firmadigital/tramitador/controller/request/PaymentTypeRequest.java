@@ -15,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PaymentTypeRequest {
 
+    private Long payTypeId;
     @NotEmpty(message = "{constraints.NoEmpty.message}")
     private String payType;
 }

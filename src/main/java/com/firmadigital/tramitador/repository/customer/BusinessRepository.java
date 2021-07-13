@@ -3,13 +3,17 @@ package com.firmadigital.tramitador.repository.customer;
 import com.firmadigital.tramitador.model.customer.Business;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BusinessRepository extends CrudRepository<Business, Long> {
+
+    Optional<Business> findById(Long id);
 
     Business findBusinessByNit(String nit);
 

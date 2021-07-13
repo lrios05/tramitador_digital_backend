@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface BusinessService {
 
+    BusinessDto findBusinessById(Long id);
+
     BusinessDto findBusinessByNit(String nit);
 
     BusinessDto createBusiness(BusinessDto businessDto);

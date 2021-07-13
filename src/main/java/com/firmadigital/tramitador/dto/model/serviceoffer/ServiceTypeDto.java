@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceTypeDto {
 
-    private Long typeId;
+    private Long serviceTypeId;
     private String serviceType;
     private String description;
 }

@@ -18,6 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/business")
+@CrossOrigin(origins = "*")
 public class BusinessController {
 
     @Autowired
@@ -32,9 +33,9 @@ public class BusinessController {
     @Autowired
     ActivityService activityService;
 
-    @GetMapping("/find")
-    public BusinessDto findBusiness() {
-        return null;
+    @GetMapping("/find/{id}")
+    public Response findBusiness(@PathVariable("id") Long businessId) {
+        return Response.ok().setPayload(businessService.findBusinessById(businessId));
     }
 
     @GetMapping("/list")
@@ -44,7 +45,7 @@ public class BusinessController {
 
     @PostMapping("/signup/{customerId}")
     public Response createBusiness(@PathVariable ("customerId") Long customerId,
-                                   @RequestBody @Valid BusinessSignupRequest businessSignupRequest) {
+                                   @Valid @RequestBody BusinessSignupRequest businessSignupRequest) {
         return Response.ok().setPayload(registerBusiness(customerId, businessSignupRequest));
     }
 

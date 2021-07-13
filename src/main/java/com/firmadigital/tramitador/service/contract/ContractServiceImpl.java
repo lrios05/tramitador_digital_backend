@@ -1,9 +1,7 @@
 package com.firmadigital.tramitador.service.contract;
 
 import com.firmadigital.tramitador.dto.mapper.ContractMapper;
-import com.firmadigital.tramitador.dto.mapper.CustomerMapper;
 import com.firmadigital.tramitador.dto.model.contract.ContractDto;
-import com.firmadigital.tramitador.dto.model.customer.CustomerDto;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
 import com.firmadigital.tramitador.exception.ExceptionType;
@@ -20,7 +18,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.time.YearMonth;
 import java.util.Optional;
 
@@ -86,18 +83,18 @@ public class ContractServiceImpl implements ContractService{
                     .findById(contractDto.getServiceOfferDto().getServiceId());
 
             Optional<PaymentType> paymentType = paymentTypeRepository
-                    .findById(contractDto.getPaymentTypeDto().getTypeId());
+                    .findById(contractDto.getPaymentTypeDto().getPayTypeId());
 
             Optional<PaymentFrequency> paymentFrequency = paymentFrequencyRepository
-                    .findById(contractDto.getPaymentFrequencyDto().getPFrequencyId());
+                    .findById(contractDto.getPaymentFrequencyDto().getPaymentId());
 
             Optional<GatherFrequency> gatherFrequency = gatherFrequencyRepository
-                    .findById(contractDto.getGatherFrequencyDto().getGFrequencyId());
+                    .findById(contractDto.getGatherFrequencyDto().getGatherId());
 
             Optional<WasteType> wasteType = wasteTypeRepository
                     .findById(contractDto.getWasteTypeDto().getWasteId());
 
-            Optional<Unit> unit = unitRepository.findById(contractDto.getUnitDto().getUniteId());
+            Optional<Unit> unit = unitRepository.findById(contractDto.getUnitDto().getUnitId());
 
             Contract contract = new Contract()
                     .setCustomer(customer.get())

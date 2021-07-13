@@ -17,6 +17,6 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PaymentFrequencyDto {
 
-    private Long pFrequencyId;
+    private Long paymentId;
     private String frequency;
 }

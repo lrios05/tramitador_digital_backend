@@ -56,4 +56,5 @@ public class Business extends ModelBase {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_business_type", nullable = false)
     private BusinessType businessType;
+
 }

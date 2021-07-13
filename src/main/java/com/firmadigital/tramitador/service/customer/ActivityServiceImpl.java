@@ -66,8 +66,19 @@ public class ActivityServiceImpl implements ActivityService{
     }
 
     @Override
-    public List<ActivityDto> findAllActivities() {
+    public List<ActivityDto> findActivityByGroup(Long id) {
+        List<Activity> activityList = activityRepository.findActivityByGroupId(id);
+        List<ActivityDto> activityDtoList = new ArrayList<>();
 
+        activityList.forEach(activity -> {
+            activityDtoList.add(ActivityMapper.toActivityDto(activity));
+        });
+
+        return activityDtoList;
+    }
+
+    @Override
+    public List<ActivityDto> findAllActivities() {
         List<Activity> activityList = activityRepository.findAll();
         List<ActivityDto> activityDtoList = new ArrayList<>();
 

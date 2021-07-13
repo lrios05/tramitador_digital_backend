@@ -2,7 +2,6 @@ package com.firmadigital.tramitador.controller.api;
 
 
 import com.firmadigital.tramitador.controller.request.ContractSignupRequest;
-import com.firmadigital.tramitador.dto.mapper.ContractMapper;
 import com.firmadigital.tramitador.dto.model.contract.*;
 import com.firmadigital.tramitador.dto.model.customer.CustomerDto;
 import com.firmadigital.tramitador.dto.model.serviceoffer.ServiceOfferDto;
@@ -18,6 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/contract")
+@CrossOrigin(origins = "*")
 public class ContractController {
     @Autowired
     private ContractService contractService;
@@ -60,13 +60,13 @@ public class ContractController {
         ServiceOfferDto serviceOfferDto = serviceOfferService
                 .findById(contractSignupRequest.getServiceId());
         PaymentTypeDto paymentTypeDto = paymentTypeService
-                .findPaymentTypeById(contractSignupRequest.getPTypeId());
+                .findPaymentTypeById(contractSignupRequest.getPayTypeId());
         PaymentFrequencyDto paymentFrequencyDto = paymentFrequencyService
-                .findPaymentFrequencyById(contractSignupRequest.getPFrequencyId());
+                .findPaymentFrequencyById(contractSignupRequest.getPaymentId());
         GatherFrequencyDto gatherFrequencyDto = gatherFrequencyService
-                .findGatherFrequencyById(contractSignupRequest.getGFrequencyId());
+                .findGatherFrequencyById(contractSignupRequest.getGatherId());
         WasteTypeDto wasteTypeDto = wasteTypeService
-                .findWasteTypeById(contractSignupRequest.getWasteTypeId());
+                .findWasteTypeById(contractSignupRequest.getWasteId());
         UnitDto unitDto = unitService
                 .findUnitById(contractSignupRequest.getUnitId());
 

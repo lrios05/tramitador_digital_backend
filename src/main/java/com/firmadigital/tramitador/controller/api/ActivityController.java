@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/business")
+@CrossOrigin(origins = "*")
 public class ActivityController {
 
     @Autowired
@@ -27,8 +28,14 @@ public class ActivityController {
         return Response.ok().setPayload(activityService.findById(Long.getLong(activityId)));
     }
 
-    @GetMapping("/listactivity")
-    public Response findAllActivities(){
+    @GetMapping("/listactivity/{id}")
+    public Response listActivityByGroup(@PathVariable("id") Long groupId){
+
+        return Response.ok().setPayload(activityService.findActivityByGroup(groupId));
+    }
+
+    @GetMapping("/listactivities")
+    public Response listAllActivities(){
 
         return Response.ok().setPayload(activityService.findAllActivities());
     }

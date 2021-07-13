@@ -15,8 +15,8 @@ import javax.validation.constraints.NotEmpty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UnitRequest {
 
+    private Long unitId;
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String unit;
-
     private String description;
 }

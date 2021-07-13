@@ -17,6 +17,6 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PaymentTypeDto {
 
-    private Long typeId;
+    private Long payTypeId;
     private String payType;
 }

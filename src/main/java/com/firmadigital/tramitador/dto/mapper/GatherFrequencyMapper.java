@@ -10,7 +10,7 @@ public class GatherFrequencyMapper {
     public static GatherFrequencyDto toGatherFrequencyDto(GatherFrequency gatherFrequency) {
 
         return new GatherFrequencyDto()
-                .setGFrequencyId(gatherFrequency.getId())
+                .setGatherId(gatherFrequency.getId())
                 .setFrequency(gatherFrequency.getFrequency());
     }
 }

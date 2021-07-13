@@ -37,7 +37,8 @@ public class CustomerSignupRequest {
 
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String address;
-
+/*
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private Long userId;
+    */
 }

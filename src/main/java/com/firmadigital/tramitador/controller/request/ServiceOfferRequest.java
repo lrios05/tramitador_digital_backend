@@ -15,11 +15,10 @@ import javax.validation.constraints.NotEmpty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceOfferRequest {
 
+    private Long serviceId;
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String service;
-
     private String description;
-
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private Long serviceTypeId;
 }

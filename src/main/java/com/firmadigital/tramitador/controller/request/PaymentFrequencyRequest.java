@@ -16,6 +16,7 @@ import javax.validation.constraints.NotEmpty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PaymentFrequencyRequest {
 
+    private Long paymentId;
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String frequency;
 }

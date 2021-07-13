@@ -10,7 +10,7 @@ public class PaymentFrequencyMapper {
     public static PaymentFrequencyDto toPaymentFrequencyDto(PaymentFrequency paymentFrequency) {
 
         return new PaymentFrequencyDto()
-                .setPFrequencyId(paymentFrequency.getId())
+                .setPaymentId(paymentFrequency.getId())
                 .setFrequency(paymentFrequency.getFrequency());
     }
 }

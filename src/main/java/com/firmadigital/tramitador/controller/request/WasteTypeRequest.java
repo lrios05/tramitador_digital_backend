@@ -15,8 +15,8 @@ import javax.validation.constraints.NotEmpty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WasteTypeRequest {
 
+    private Long wasteId;
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String waste;
-
     private String description;
 }

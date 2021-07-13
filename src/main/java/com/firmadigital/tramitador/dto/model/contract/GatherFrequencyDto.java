@@ -17,6 +17,6 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GatherFrequencyDto {
 
-    private Long gFrequencyId;
+    private Long gatherId;
     private String frequency;
 }

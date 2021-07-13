@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/business")
+@CrossOrigin(origins = "*")
 public class BusinessTypeController {
 
     @Autowired

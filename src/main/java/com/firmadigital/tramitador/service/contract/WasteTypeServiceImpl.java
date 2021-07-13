@@ -1,15 +1,20 @@
 package com.firmadigital.tramitador.service.contract;
 
+import com.firmadigital.tramitador.dto.mapper.PaymentTypeMapper;
+import com.firmadigital.tramitador.dto.mapper.WasteTypeMapper;
+import com.firmadigital.tramitador.dto.model.contract.PaymentTypeDto;
 import com.firmadigital.tramitador.dto.model.contract.WasteTypeDto;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
 import com.firmadigital.tramitador.exception.ExceptionType;
+import com.firmadigital.tramitador.model.contract.PaymentType;
 import com.firmadigital.tramitador.model.contract.WasteType;
 import com.firmadigital.tramitador.repository.contract.WasteTypeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +52,14 @@ public class WasteTypeServiceImpl implements WasteTypeService{
 
     @Override
     public List<WasteTypeDto> listAllWasteTypes() {
-        return null;
+
+        List<WasteType> wasteTypeList = wasteTypeRepository.findAll();
+        List<WasteTypeDto> wasteTypeDtoList = new ArrayList<>();
+
+        wasteTypeList.forEach(wasteType -> {
+            wasteTypeDtoList.add(WasteTypeMapper.toWasteTypeDto(wasteType));
+        });
+        return wasteTypeDtoList;
     }
 
     private RuntimeException exception(EntityType entityType, ExceptionType exceptionType, String... args) {

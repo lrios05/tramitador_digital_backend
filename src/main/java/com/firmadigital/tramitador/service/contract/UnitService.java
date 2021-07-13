@@ -10,5 +10,5 @@ public interface UnitService {
     UnitDto findUnitById(Long unitId);
     UnitDto createUnit(UnitDto unitDto);
     UnitDto updateUnit(UnitDto unitDto);
-    List<Unit> findAllUnits();
+    List<UnitDto> findAllUnits();
 }

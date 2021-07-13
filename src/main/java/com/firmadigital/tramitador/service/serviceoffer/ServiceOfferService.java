@@ -13,6 +13,8 @@ public interface ServiceOfferService {
 
     ServiceOfferDto findById(Long id);
 
+    List<ServiceOfferDto> findServiceOfferByServiceTypeId(Long id);
+
     List<ServiceOfferDto> findAllServiceOffer();
 
     ServiceOfferDto createServiceOffer(ServiceOfferDto serviceOfferDto);

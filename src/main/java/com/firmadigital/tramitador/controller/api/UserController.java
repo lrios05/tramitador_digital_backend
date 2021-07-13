@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -29,7 +30,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public Response signup(@RequestBody @Valid UserSignupRequest userSignupRequest) {
+    public Response signup(@Valid @RequestBody UserSignupRequest userSignupRequest) {
+        System.out.println("Llega estito: " + userSignupRequest.toString());
         return Response.ok().setPayload(registerUser(userSignupRequest, false));
     }
 

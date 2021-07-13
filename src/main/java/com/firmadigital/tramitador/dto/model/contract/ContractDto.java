@@ -28,12 +28,10 @@ public class ContractDto {
     private Date endDate;
     private ServiceOfferDto serviceOfferDto;
     private double totalCost;
-    //private PaymentPlanDto paymentPlanDto;
     private PaymentTypeDto paymentTypeDto;
     private PaymentFrequencyDto paymentFrequencyDto;
     private int payments;
     private double amount;
-    //private GatherPlanDto gatherPlanDto;
     private GatherFrequencyDto gatherFrequencyDto;
     private WasteTypeDto wasteTypeDto;
     private double volume;
