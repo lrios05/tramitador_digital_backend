@@ -30,7 +30,7 @@ public class GatherFrequencyServiceImpl implements GatherFrequencyService{
     @Autowired
     private GatherFrequencyRepository gatherFrequencyRepository;
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Override
     public GatherFrequencyDto findGatherFrequencyById(Long id) {

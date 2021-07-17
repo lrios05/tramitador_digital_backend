@@ -30,4 +30,8 @@ public class CustomerDto {
     private String email;
     private String address;
     private UserDto userDto;
+
+    public String getFullName() {
+        return maternal != null ? name.concat(" ").concat(paternal).concat(maternal) : "";
+    }
 }

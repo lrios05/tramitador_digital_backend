@@ -1,6 +1,7 @@
 package com.firmadigital.tramitador.service.contract;
 
 import com.firmadigital.tramitador.dto.mapper.ContractMapper;
+import com.firmadigital.tramitador.dto.mapper.ServiceOfferMapper;
 import com.firmadigital.tramitador.dto.model.contract.ContractDto;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
@@ -19,7 +20,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.time.YearMonth;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.firmadigital.tramitador.exception.EntityType.CONTRACT;
 import static com.firmadigital.tramitador.exception.EntityType.CUSTOMER;
@@ -46,7 +49,7 @@ public class ContractServiceImpl implements ContractService{
     @Autowired
     private ServiceOfferRepository serviceOfferRepository;
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Override
     public ContractDto findContractById(Long contractId) {
@@ -60,16 +63,34 @@ public class ContractServiceImpl implements ContractService{
     }
 
     @Override
-    public ContractDto findContractByContractCode(String contractCode) {
-        Optional<Contract> contract = Optional.ofNullable(
-                contractRepository.findContractByContractCode(contractCode)
-        );
+    public ContractDto findByContractCode(String code) {
+        Optional<Contract> contract = contractRepository.findByContractCode(code);
 
         if (contract.isPresent()) {
-            return modelMapper.map(contract.get(), ContractDto.class);
+            return ContractMapper.toContractDto(contract.get());
+            //return modelMapper.map(contract.get(), ContractDto.class);
         }
 
-        throw exception(CONTRACT, ENTITY_NOT_FOUND, "Contrato: " + contractCode);
+        throw exception(CONTRACT, ENTITY_NOT_FOUND, "Contrato: " + code);
+    }
+
+    @Override
+    public ContractDto findByCodeAndStatus(String code, String status) {
+        Optional<Contract> contract = contractRepository.findByCodeAndStatus(code, status);
+
+        if (contract.isPresent()) {
+            return ContractMapper.toContractDto(contract.get());
+            // return modelMapper.map(contract.get(), ContractDto.class);
+        }
+
+        throw exception(CONTRACT, ENTITY_NOT_FOUND, "Código Contrato: " + code);
+    }
+
+    @Override
+    public List<ContractDto> findAllByStatus(String status) {
+        return contractRepository.findAllByStatus(status).stream().map(contract -> {
+            return ContractMapper.toContractDto(contract);
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -81,19 +102,14 @@ public class ContractServiceImpl implements ContractService{
 
             Optional<ServiceOffer> serviceOffer = serviceOfferRepository
                     .findById(contractDto.getServiceOfferDto().getServiceId());
-
             Optional<PaymentType> paymentType = paymentTypeRepository
                     .findById(contractDto.getPaymentTypeDto().getPayTypeId());
-
             Optional<PaymentFrequency> paymentFrequency = paymentFrequencyRepository
                     .findById(contractDto.getPaymentFrequencyDto().getPaymentId());
-
             Optional<GatherFrequency> gatherFrequency = gatherFrequencyRepository
                     .findById(contractDto.getGatherFrequencyDto().getGatherId());
-
             Optional<WasteType> wasteType = wasteTypeRepository
                     .findById(contractDto.getWasteTypeDto().getWasteId());
-
             Optional<Unit> unit = unitRepository.findById(contractDto.getUnitDto().getUnitId());
 
             Contract contract = new Contract()
@@ -111,10 +127,10 @@ public class ContractServiceImpl implements ContractService{
                     .setWasteType(wasteType.get())
                     .setVolume(contractDto.getVolume())
                     .setUnit(unit.get())
-                    .setDays(contractDto.getDays());
+                    .setDays(contractDto.getDays())
+                    .setStatus(contractDto.getStatus());
 
             return ContractMapper.toContractDto(contractRepository.save(contract));
-
         }
 
         throw exception(CUSTOMER, ENTITY_NOT_FOUND, "Customer ID" + customerId);

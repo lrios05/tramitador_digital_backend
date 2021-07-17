@@ -41,6 +41,20 @@ public class ContractController {
         return  Response.ok().setPayload(contractService.findContractById(contractId));
     }
 
+    @GetMapping("/find")
+    public Response findContractByCodeAndStatus(@RequestParam(required = false) String code,
+                                                @RequestParam(required = false) String status) {
+        System.out.println("CODE: " + code);
+        System.out.println("STATUS: " + status);
+        if (code == null || code.isEmpty()) {
+            return Response.ok().setPayload(contractService.findAllByStatus(status));
+        } else if (status == null || status.isEmpty()) {
+            return Response.ok().setPayload(contractService.findByContractCode(code));
+        }
+
+        return Response.ok().setPayload(contractService.findByCodeAndStatus(code, status));
+    }
+
     @GetMapping("/list")
     public Response getAllContracts(Pageable pageable){
         return Response.ok().setPayload(contractService.findAllContracts(pageable));
@@ -49,7 +63,7 @@ public class ContractController {
     @PostMapping("/signup/{id}")
     public Response createContract(@PathVariable("id") Long customerId,
                                    @RequestBody @Valid ContractSignupRequest contractSignupRequest) {
-
+        System.out.println("Codigo Cliente: " + customerId);
         return Response.ok().setPayload(registerContract(contractSignupRequest, customerId));
     }
 
@@ -71,6 +85,7 @@ public class ContractController {
                 .findUnitById(contractSignupRequest.getUnitId());
 
         ContractDto contractDto = new ContractDto()
+                .setCustomerDto(customerDto)
                 .setInitDate(contractSignupRequest.getInitDate())
                 .setEndDate(contractSignupRequest.getEndDate())
                 .setServiceOfferDto(serviceOfferDto)
@@ -83,7 +98,8 @@ public class ContractController {
                 .setWasteTypeDto(wasteTypeDto)
                 .setVolume(contractSignupRequest.getVolume())
                 .setUnitDto(unitDto)
-                .setDays(contractSignupRequest.getDays());
+                .setDays(contractSignupRequest.getDays())
+                .setStatus("Pendiente");
 
         return contractService.createContract(contractDto, customerId);
     }

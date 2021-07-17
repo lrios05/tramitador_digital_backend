@@ -14,11 +14,9 @@ import java.util.Optional;
 public interface BusinessRepository extends CrudRepository<Business, Long> {
 
     Optional<Business> findById(Long id);
-
+    @Query("SELECT b FROM Business b WHERE b.customer.id = ?1")
+    Optional<Business> findByCustomerId(Long id);
     Business findBusinessByNit(String nit);
-
     Page<Business> findAll(Pageable pageable);
-
     List<Business> findAllById(Long customerId, Pageable pageable);
-
 }

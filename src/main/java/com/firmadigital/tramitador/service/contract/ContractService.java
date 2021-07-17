@@ -4,15 +4,17 @@ import com.firmadigital.tramitador.dto.model.contract.ContractDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-
-import java.util.Collection;
-import java.util.Optional;
+import java.util.List;
 
 public interface ContractService {
 
     ContractDto findContractById(Long contractId);
 
-    ContractDto findContractByContractCode(String contractCode);
+    ContractDto findByContractCode(String code);
+
+    ContractDto findByCodeAndStatus(String code, String status);
+
+    List<ContractDto> findAllByStatus(String status);
 
     ContractDto createContract(ContractDto contractDto, Long customerId);
 

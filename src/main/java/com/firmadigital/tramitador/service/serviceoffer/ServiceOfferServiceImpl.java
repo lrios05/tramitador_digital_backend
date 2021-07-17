@@ -38,7 +38,8 @@ public class ServiceOfferServiceImpl implements ServiceOfferService{
         Optional<ServiceOffer> serviceOffer = serviceOfferRepository.findById(id);
 
         if (serviceOffer.isPresent()) {
-            return modelMapper.map(serviceOffer.get(), ServiceOfferDto.class);
+            //return modelMapper.map(serviceOffer.get(), ServiceOfferDto.class);
+            return ServiceOfferMapper.toServiceOfferDto(serviceOffer.get());
         }
 
         throw exception(SERVICE, ENTITY_NOT_FOUND, id.toString());

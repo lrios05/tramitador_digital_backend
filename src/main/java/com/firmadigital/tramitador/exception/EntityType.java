@@ -17,5 +17,11 @@ public enum EntityType {
     UNIT,
     SERVICE,
     SERVICE_TYPE,
-    UPLOAD
+    ATTACHE,
+    DOCUMENT,
+    OBSERVATION,
+    COMMENT,
+    NOTE,
+    DETAIL,
+    INSTRUCTION
 }

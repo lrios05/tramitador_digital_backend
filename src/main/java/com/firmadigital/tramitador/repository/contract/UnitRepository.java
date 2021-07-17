@@ -1,6 +1,5 @@
 package com.firmadigital.tramitador.repository.contract;
 
-import com.firmadigital.tramitador.model.contract.GatherFrequency;
 import com.firmadigital.tramitador.model.serviceoffer.Unit;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

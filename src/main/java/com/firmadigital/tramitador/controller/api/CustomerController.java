@@ -35,8 +35,7 @@ public class CustomerController {
 
     @PostMapping("/signup/{email}")
     public Response signupCustomer(@PathVariable("email") String email,
-                                       @RequestBody @Valid CustomerSignupRequest customerSignupRequest){
-        System.out.println("Llega estito: " + customerSignupRequest.toString());
+                                   @RequestBody @Valid CustomerSignupRequest customerSignupRequest){
         return Response.ok().setPayload(registerCustomer(email, customerSignupRequest));
     }
 

@@ -13,8 +13,6 @@ public class UnitController {
 
     @Autowired
     private UnitService unitService;
-    @Autowired
-    private ModelMapper modelMapper;
 
     @GetMapping("/findunit")
     public Response findWasteType(@PathVariable("id") Long unitId){

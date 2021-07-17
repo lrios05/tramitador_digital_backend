@@ -60,6 +60,18 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
+    public BusinessDto findByCustomerId(Long customerId) {
+        Optional<Business> business = businessRepository.findByCustomerId(customerId);
+
+        if (business.isPresent()) {
+            return BusinessMapper.toBusinessDto(business.get());
+            //return modelMapper.map(business.get(), BusinessDto.class);
+        }
+
+        throw exception(BUSINESS, ENTITY_NOT_FOUND, customerId.toString());
+    }
+
+    @Override
     public BusinessDto findBusinessByNit(String nit) {
 
         Business business = businessRepository.findBusinessByNit(nit);

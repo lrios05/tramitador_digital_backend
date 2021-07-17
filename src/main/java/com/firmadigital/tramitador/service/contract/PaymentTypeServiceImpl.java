@@ -32,10 +32,13 @@ public class PaymentTypeServiceImpl implements PaymentTypeService{
 
     @Override
     public PaymentTypeDto findPaymentTypeById(Long id) {
+        System.out.println("Service Pay Type : " + id);
         Optional<PaymentType> paymentType = paymentTypeRepository.findById(id);
 
+        System.out.println("Service Pay Type found : " + paymentType.get().getId());
         if (paymentType.isPresent()) {
-            return modelMapper.map(paymentType.get(), PaymentTypeDto.class);
+            //return modelMapper.map(paymentType.get(), PaymentTypeDto.class);
+            return PaymentTypeMapper.toPaymentTypeDto(paymentType.get());
         }
 
         throw exception(PAYMENT_TYPE, ENTITY_NOT_FOUND, "Forma de pago: " + id);

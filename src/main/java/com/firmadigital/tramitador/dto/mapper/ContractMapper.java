@@ -10,6 +10,7 @@ public class ContractMapper {
     public static ContractDto toContractDto (Contract contract) {
 
         return new ContractDto()
+                .setContractId(contract.getId())
                 .setCustomerDto(CustomerMapper.toCustomerDto(contract.getCustomer()))
                 .setContractCode(contract.getContractCode())
                 .setInitDate(contract.getInitDate())
@@ -24,8 +25,7 @@ public class ContractMapper {
                 .setWasteTypeDto(WasteTypeMapper.toWasteTypeDto(contract.getWasteType()))
                 .setVolume(contract.getVolume())
                 .setUnitDto(UnitMapper.toUnitDto(contract.getUnit()))
-                .setDays(contract.getDays());
-                //.setPaymentPlanDto(PaymentPlanMapper.toPaymentPlanDto(contract.getPaymentPlan()));
-                //.setGatherPlanDto(GatherPlanMapper.toGatherPlanDto(contract.getGatherPlan()));
+                .setDays(contract.getDays())
+                .setStatus(contract.getStatus());
     }
 }

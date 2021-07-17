@@ -4,6 +4,7 @@ import com.firmadigital.tramitador.model.ModelBase;
 import com.firmadigital.tramitador.model.customer.Customer;
 import com.firmadigital.tramitador.model.serviceoffer.ServiceOffer;
 import com.firmadigital.tramitador.model.serviceoffer.Unit;
+import com.firmadigital.tramitador.model.upload.Attache;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,11 +51,6 @@ public class Contract extends ModelBase {
     @Column(name = "total_cost", nullable = false, scale = 2)
     private double totalCost;
 
-    /*
-    @OneToOne(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-    private PaymentPlan paymentPlan;
-    */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_paytype", nullable = false)
     private PaymentType paymentType;
@@ -69,11 +65,6 @@ public class Contract extends ModelBase {
     @Column(name = "amount", nullable = false, scale = 2)
     private double amount;
 
-    /*
-    @OneToOne(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-    private GatherPlan gatherPlan;
-    */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_gfrequency", nullable = false)
     private GatherFrequency gatherFrequency;
@@ -91,5 +82,8 @@ public class Contract extends ModelBase {
 
     @Column(name = "days", nullable = false, length = 15)
     private String days;
+
+    @Column(name = "status", length = 15)
+    private String status;
 
 }

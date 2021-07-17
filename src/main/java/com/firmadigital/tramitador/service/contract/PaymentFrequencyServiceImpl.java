@@ -31,7 +31,7 @@ public class PaymentFrequencyServiceImpl implements PaymentFrequencyService{
     private PaymentFrequencyRepository paymentFrequencyRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Override
     public PaymentFrequencyDto findPaymentFrequencyById(Long id) {
