@@ -20,6 +20,7 @@ import java.util.Collection;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto {
 
+    private Long userId;
     private String email;
     private String password;
     private String name;

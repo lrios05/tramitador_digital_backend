@@ -3,6 +3,7 @@ package com.firmadigital.tramitador.dto.model.tracking;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.firmadigital.tramitador.dto.model.user.UserDto;
+import com.firmadigital.tramitador.dto.model.user.UserRoleDto;
 import com.firmadigital.tramitador.model.tracking.Instruction;
 import com.firmadigital.tramitador.model.tracking.Note;
 import com.firmadigital.tramitador.model.user.User;
@@ -27,6 +28,7 @@ public class DetailDto {
     private NoteDto noteDto;
     private String comment;
     private String priority;
+    private Date deadline;
     private UserDto fromUserDto;
     private UserDto toUserDto;
     private Date sendDate;

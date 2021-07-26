@@ -18,7 +18,7 @@ import javax.persistence.*;
 @Table(name = "documents")
 public class Document extends ModelBase {
 
-    @Column(name = "doc_type", nullable = false, length = 10)
+    @Column(name = "doc_type", length = 10)
     private String docType;
 
     @Column(name = "doc_name", nullable = false, length = 100)

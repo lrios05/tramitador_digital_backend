@@ -28,6 +28,11 @@ public class CustomerController {
         return Response.ok().setPayload(customerService.findById(customerId));
     }
 
+    @GetMapping("/findinfo/{id}")
+    public Response getCustomerInfo(@PathVariable("id") Long customerId){
+        return Response.ok().setPayload(customerService.findCustomerInfoById(customerId));
+    }
+
     @GetMapping("/list")
     public Response getAllCustomers(Pageable pageable){
         return Response.ok().setPayload(customerService.findAllCustomers(pageable));

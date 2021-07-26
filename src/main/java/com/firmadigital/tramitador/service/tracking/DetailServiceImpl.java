@@ -1,7 +1,9 @@
 package com.firmadigital.tramitador.service.tracking;
 
 import com.firmadigital.tramitador.dto.mapper.DetailMapper;
+import com.firmadigital.tramitador.dto.mapper.DetailPartMapper;
 import com.firmadigital.tramitador.dto.model.tracking.DetailDto;
+import com.firmadigital.tramitador.dto.model.tracking.DetailPartDto;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
 import com.firmadigital.tramitador.exception.ExceptionType;
@@ -16,6 +18,7 @@ import com.firmadigital.tramitador.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,13 +49,13 @@ public class DetailServiceImpl implements DetailService{
     }
 
     @Override
-    public List<DetailDto> findByNoteId(Long noteId) {
-        List<DetailDto> detailDtoList = new ArrayList<>();
+    public List<DetailPartDto> findByNoteId(Long noteId) {
+        List<DetailPartDto> detailPartDtoList = new ArrayList<>();
         detailRepository.findByNoteId(noteId)
                 .forEach(detail -> {
-                    detailDtoList.add(DetailMapper.toDetailDto(detail));
+                    detailPartDtoList.add(DetailPartMapper.toDetailPartDto(detail));
                 });
-        return detailDtoList;
+        return detailPartDtoList;
 
        // throw exception(DETAIL, ENTITY_NOT_FOUND, noteId.toString());
     }
@@ -60,6 +63,7 @@ public class DetailServiceImpl implements DetailService{
     @Override
     public DetailDto createDetail(Long noteId, Long fromId, Long toId, DetailDto detailDto) {
         Optional<Note> note = noteRepository.findById(noteId);
+        Optional<Instruction> instruction = instructionRepository.findById(detailDto.getInstructionDto().getInstructionId());
 
         if (note.isPresent()) {
 
@@ -67,16 +71,15 @@ public class DetailServiceImpl implements DetailService{
                     .setNote(note.get())
                     .setComment(detailDto.getComment())
                     .setPriority(detailDto.getPriority())
+                    .setDeadline(detailDto.getDeadline())
                     .setFromUser(getUser(fromId))
                     .setToUser(getUser(toId))
                     .setSendDate(detailDto.getSendDate())
                     .setReceiveDate(detailDto.getReceiveDate())
                     .setSendStatus(detailDto.getSendStatus())
                     .setReceivedStatus(detailDto.getReceivedStatus())
-                    .setInstruction(
-                            new Instruction()
-                            .setInstruction(detailDto.getInstructionDto().getInstruction())
-                    );
+                    .setInstruction(instruction.get());
+
             return DetailMapper.toDetailDto(detailRepository.save(detail));
         }
         throw exception(NOTE, ENTITY_NOT_FOUND, noteId.toString());

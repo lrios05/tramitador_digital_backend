@@ -30,10 +30,6 @@ public class Note extends ModelBase {
     @Column(name = "year", nullable = false)
     private Integer year;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "deadline", nullable = false, updatable = false)
-    private Date deadline;
-
     @Column(name = "subject", nullable = false, length = 100)
     private String subject;
 

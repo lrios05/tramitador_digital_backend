@@ -1,9 +1,13 @@
 package com.firmadigital.tramitador.service.customer;
 
 import com.firmadigital.tramitador.dto.mapper.BusinessMapper;
+import com.firmadigital.tramitador.dto.mapper.BusinessResponseMapper;
 import com.firmadigital.tramitador.dto.mapper.ServiceOfferMapper;
+import com.firmadigital.tramitador.dto.mapper.views.BusinessInfoMapper;
 import com.firmadigital.tramitador.dto.model.customer.BusinessDto;
+import com.firmadigital.tramitador.dto.model.customer.BusinessResponseDto;
 import com.firmadigital.tramitador.dto.model.serviceoffer.ServiceOfferDto;
+import com.firmadigital.tramitador.dto.model.views.BusinessInfoDto;
 import com.firmadigital.tramitador.dto.response.Response;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
@@ -60,14 +64,33 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-    public BusinessDto findByCustomerId(Long customerId) {
-        Optional<Business> business = businessRepository.findByCustomerId(customerId);
+    public BusinessInfoDto findBusinessInfoById(Long id) {
+        Optional<Business> business = businessRepository.findById(id);
 
         if (business.isPresent()) {
+            return BusinessInfoMapper.toBusinessInfoDto(business.get());
+        }
+
+        throw exception(BUSINESS, ENTITY_NOT_FOUND, id.toString());
+    }
+
+    @Override
+    public BusinessDto findByCustomerId(Long customerId) {
+        Optional<Business> business = businessRepository.findByCustomerId(customerId);
+        if (business.isPresent()) {
+            //return BusinessResponseMapper.toBusinessResponseDto(business.get());
             return BusinessMapper.toBusinessDto(business.get());
             //return modelMapper.map(business.get(), BusinessDto.class);
         }
+        throw exception(BUSINESS, ENTITY_NOT_FOUND, customerId.toString());
+    }
 
+    @Override
+    public BusinessInfoDto findInfoByCustomerId(Long customerId) {
+        Optional<Business> business = businessRepository.findByCustomerId(customerId);
+        if (business.isPresent()) {
+            return BusinessInfoMapper.toBusinessInfoDto(business.get());
+        }
         throw exception(BUSINESS, ENTITY_NOT_FOUND, customerId.toString());
     }
 

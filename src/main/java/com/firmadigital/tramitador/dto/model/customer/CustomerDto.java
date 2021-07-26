@@ -32,6 +32,6 @@ public class CustomerDto {
     private UserDto userDto;
 
     public String getFullName() {
-        return maternal != null ? name.concat(" ").concat(paternal).concat(maternal) : "";
+        return maternal != null ? name.concat(" ").concat(paternal).concat(" ").concat(maternal) : "";
     }
 }

@@ -23,5 +23,6 @@ public enum EntityType {
     COMMENT,
     NOTE,
     DETAIL,
-    INSTRUCTION
+    INSTRUCTION,
+    SIGNATURE
 }

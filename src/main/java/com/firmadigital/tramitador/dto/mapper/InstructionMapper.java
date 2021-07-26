@@ -10,7 +10,7 @@ public class InstructionMapper {
     public static InstructionDto toInstructionDto(Instruction instruction){
 
         return new InstructionDto()
-                .setId(instruction.getId())
+                .setInstructionId(instruction.getId())
                 .setInstruction(instruction.getInstruction());
     }
 }

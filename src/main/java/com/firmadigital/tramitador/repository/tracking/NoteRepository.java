@@ -17,11 +17,20 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
     @Query("SELECT n FROM Note n WHERE n.contract.id = ?1")
     Optional<Note> findByContractId(Long id);
 
+    @Query("SELECT n FROM Note n WHERE n.contract.contractCode = ?1")
+    Optional<Note> findByContractCode(String code);
+
     @Query("SELECT n FROM Note n WHERE n.number = ?1")
-    Optional<Note> findNoteByNumber(int number);
+    Optional<Note> findNoteByNumber(Long number);
+
+    @Query("SELECT n FROM Note n WHERE n.number = ?1 and n.status = ?2")
+    Optional<Note> findByNumberAndStatus(Long number, String status);
+
+    @Query("SELECT n FROM Note n WHERE n.contract.contractCode = ?1 and n.status = ?2")
+    Optional<Note> findByContractAndStatus(String code, String status);
 
     @Query("SELECT n FROM Note n WHERE n.status = ?1")
-    Optional<Note> findNoteByStatus(String status);
+    List<Note> findNoteByStatus(String status);
 
     List<Note> findAll();
 

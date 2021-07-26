@@ -1,25 +1,23 @@
 package com.firmadigital.tramitador.controller.api;
 
 import com.firmadigital.tramitador.controller.request.DetailRequest;
-import com.firmadigital.tramitador.controller.request.NoteRequest;
 import com.firmadigital.tramitador.dto.model.tracking.DetailDto;
 import com.firmadigital.tramitador.dto.model.tracking.InstructionDto;
 import com.firmadigital.tramitador.dto.model.tracking.NoteDto;
 import com.firmadigital.tramitador.dto.model.user.UserDto;
 import com.firmadigital.tramitador.dto.response.Response;
-import com.firmadigital.tramitador.model.user.User;
 import com.firmadigital.tramitador.service.tracking.DetailService;
 import com.firmadigital.tramitador.service.tracking.InstructionService;
 import com.firmadigital.tramitador.service.tracking.NoteService;
 import com.firmadigital.tramitador.service.user.UserService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @RestController
-@RequestMapping("/api/details")
+@RequestMapping("/api/followup")
 @CrossOrigin(origins = "*")
 public class DetailController {
 
@@ -32,7 +30,7 @@ public class DetailController {
     @Autowired
     private InstructionService instructionService;
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/finddetail/{id}")
     public Response findDetail(@PathVariable("id") Long detailId){
         return Response.ok().setPayload(detailService.findById(detailId));
     }
@@ -42,19 +40,20 @@ public class DetailController {
         return Response.ok().setPayload(detailService.findByNoteId(noteId));
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listdetails")
     public Response findAllDetails(){
         return Response.ok().setPayload(detailService.findAll());
     }
 
-    @PostMapping("/create/{id}")
+    @PostMapping("/createdetail/{id}")
     public Response createDetail(@PathVariable("id") Long noteId,
-                              @Valid @RequestBody DetailRequest detailRequest) {
+                                 @Valid @RequestBody DetailRequest detailRequest) {
         return Response.ok().setPayload(registerDetail(noteId, detailRequest));
     }
 
     private DetailDto registerDetail(Long noteId, DetailRequest detailRequest) {
 
+        System.out.println("QUE TRAE getInstructionID: " + detailRequest.getInstructionId());
         Long fromUserId = detailRequest.getFromUserId();
         Long toUserId = detailRequest.getToUserId();
         NoteDto noteDto = noteService.findById(noteId);
@@ -64,9 +63,10 @@ public class DetailController {
                 .setNoteDto(noteDto)
                 .setComment(detailRequest.getComment())
                 .setPriority(detailRequest.getPriority())
+                .setDeadline(detailRequest.getDeadLine())
                 .setFromUserDto(getUserDto(fromUserId))
                 .setToUserDto(getUserDto(toUserId))
-                .setSendDate(detailRequest.getSendDate())
+                .setSendDate(new Date())
                 .setSendStatus("Concluido")
                 .setReceivedStatus("Pendiente")
                 .setInstructionDto(instructionDto);
@@ -77,5 +77,4 @@ public class DetailController {
     private UserDto getUserDto(Long id) {
         return userService.findById(id);
     }
-
 }

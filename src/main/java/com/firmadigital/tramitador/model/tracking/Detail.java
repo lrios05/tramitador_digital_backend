@@ -31,6 +31,10 @@ public class Detail extends ModelBase {
     @Column(name = "priority", nullable = false, length = 10)
     private String priority;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "deadline", nullable = false, updatable = false)
+    private Date deadline;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "from_user", nullable = false)
     private User fromUser;

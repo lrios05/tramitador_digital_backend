@@ -18,7 +18,10 @@ public interface ContractRepository extends CrudRepository<Contract, Long> {
 
     @Query("SELECT c FROM Contract c WHERE c.contractCode = ?1")
     Optional<Contract> findByContractCode(String code);
-
+/*
+    @Query("SELECT c FROM Contract c WHERE c.customer.user.id = ?1")
+    Optional<Contract> findByUserId(Long id);
+*/
     @Query("SELECT c FROM Contract c WHERE c.contractCode =  ?1 AND c.status = ?2")
     Optional<Contract> findByCodeAndStatus(String code, String status);
 

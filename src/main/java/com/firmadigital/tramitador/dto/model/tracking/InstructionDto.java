@@ -17,6 +17,6 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InstructionDto {
 
-    private Long id;
+    private Long instructionId;
     private String instruction;
 }

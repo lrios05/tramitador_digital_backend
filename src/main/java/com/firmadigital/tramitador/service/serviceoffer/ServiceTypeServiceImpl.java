@@ -33,7 +33,6 @@ public class ServiceTypeServiceImpl implements ServiceTypeService{
         if (serviceType.isPresent()) {
             return modelMapper.map(serviceType.get(), ServiceTypeDto.class);
         }
-
         throw exception(SERVICE_TYPE, ENTITY_NOT_FOUND, id.toString());
     }
 
@@ -42,14 +41,6 @@ public class ServiceTypeServiceImpl implements ServiceTypeService{
         return serviceTypeRepository.findAll().stream().map(serviceType -> {
             return ServiceTypeMapper.toServiceTypeDto(serviceType);
         }).collect(Collectors.toList());
-        /*
-        List<ServiceTypeDto> serviceTypeDtoList = new ArrayList<>();
-        serviceTypeRepository.findAll()
-                .forEach(serviceType -> {
-                    serviceTypeDtoList.add(ServiceTypeMapper.toServiceTypeDto(serviceType));
-                });
-        return serviceTypeDtoList;
-         */
     }
 
     @Override

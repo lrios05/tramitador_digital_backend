@@ -2,7 +2,9 @@ package com.firmadigital.tramitador.service.contract;
 
 import com.firmadigital.tramitador.dto.mapper.ContractMapper;
 import com.firmadigital.tramitador.dto.mapper.ServiceOfferMapper;
+import com.firmadigital.tramitador.dto.mapper.views.ContractInfoMapper;
 import com.firmadigital.tramitador.dto.model.contract.ContractDto;
+import com.firmadigital.tramitador.dto.model.views.ContractInfoDto;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
 import com.firmadigital.tramitador.exception.ExceptionType;
@@ -56,10 +58,22 @@ public class ContractServiceImpl implements ContractService{
         Optional<Contract> contract = contractRepository.findById(contractId);
 
         if (contract.isPresent()) {
+            //return ContractMapper.toContractDto(contract.get());
             return modelMapper.map(contract.get(), ContractDto.class);
         }
 
         throw exception(CONTRACT, ENTITY_NOT_FOUND, "Contrato ID: " + contractId);
+    }
+
+    @Override
+    public ContractInfoDto findContractInfoById(Long id) {
+        Optional<Contract> contract = contractRepository.findById(id);
+
+        if (contract.isPresent()) {
+            return ContractInfoMapper.toContractInfoDto(contract.get());
+        }
+
+        throw exception(CONTRACT, ENTITY_NOT_FOUND, "Contrato ID: " + id);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.firmadigital.tramitador.service.upload;
 
 import com.firmadigital.tramitador.dto.mapper.AttacheMapper;
+import com.firmadigital.tramitador.dto.mapper.AttachePartMapper;
 import com.firmadigital.tramitador.dto.model.upload.AttacheDto;
+import com.firmadigital.tramitador.dto.model.upload.AttachePartDto;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
 import com.firmadigital.tramitador.exception.ExceptionType;
@@ -46,6 +48,16 @@ public class AttacheServiceImpl implements AttacheService{
         }
 
         throw exception(ATTACHE, ENTITY_NOT_FOUND, id.toString());
+    }
+
+    @Override
+    public AttachePartDto findByContractCode(String code) {
+        Optional<Attache> attache = attacheRepository.findByContractCode(code);
+
+        if (attache.isPresent()) {
+            return AttachePartMapper.toAttachePartDto(attache.get());
+        }
+        throw exception(ATTACHE, ENTITY_NOT_FOUND, code);
     }
 
     @Override

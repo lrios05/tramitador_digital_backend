@@ -4,16 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.firmadigital.tramitador.dto.model.contract.ContractDto;
 import com.firmadigital.tramitador.dto.model.user.UserDto;
+import com.firmadigital.tramitador.dto.model.user.UserRoleDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,9 +22,8 @@ public class NoteDto {
 
     private Long noteId;
     private ContractDto contractDto;
-    private Long number;
+    private Long sequence;
     private int year;
-    private Date deadline;
     private String subject;
     private String status;
     private UserDto userDto;

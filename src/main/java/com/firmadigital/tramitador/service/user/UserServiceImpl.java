@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService{
             if (userDto.isAdmin()){
                 userRole = roleRepository.findByRole(UserRoles.ADMIN);
             } else {
-                userRole = roleRepository.findByRole(UserRoles.CLIENT);
+                userRole = roleRepository.findByRole(UserRoles.CLIENTE);
             }
 
             user = new User()

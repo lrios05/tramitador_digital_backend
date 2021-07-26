@@ -9,6 +9,9 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.Collection;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,6 +21,9 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoleDto {
 
+    private Long roleId;
     private String role;
+    private String description;
     private Character status;
+    private List<UserRoleDto> users;
 }

@@ -10,7 +10,9 @@ public class DetailMapper {
 
         return new DetailDto()
                 .setNoteDto(NoteMapper.toNoteDto(detail.getNote()))
+                .setComment(detail.getComment())
                 .setPriority(detail.getPriority())
+                .setDeadline(detail.getDeadline())
                 .setFromUserDto(UserMapper.toUserDto(detail.getFromUser()))
                 .setToUserDto(UserMapper.toUserDto(detail.getToUser()))
                 .setSendDate(detail.getSendDate())

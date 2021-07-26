@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/contract")
@@ -41,18 +43,24 @@ public class ContractController {
         return  Response.ok().setPayload(contractService.findContractById(contractId));
     }
 
+    @GetMapping("/findinfo/{id}")
+    public Response findContractInfo(@PathVariable ("id") Long contractId) {
+        return  Response.ok().setPayload(contractService.findContractInfoById(contractId));
+    }
+
     @GetMapping("/find")
     public Response findContractByCodeAndStatus(@RequestParam(required = false) String code,
                                                 @RequestParam(required = false) String status) {
-        System.out.println("CODE: " + code);
-        System.out.println("STATUS: " + status);
+        List<ContractDto> contractDtoList = new ArrayList<>();
         if (code == null || code.isEmpty()) {
             return Response.ok().setPayload(contractService.findAllByStatus(status));
         } else if (status == null || status.isEmpty()) {
-            return Response.ok().setPayload(contractService.findByContractCode(code));
+            //return Response.ok().setPayload(contractService.findByContractCode(code));
+            contractDtoList.add(contractService.findByContractCode(code));
+            return Response.ok().setPayload(contractDtoList);
         }
-
-        return Response.ok().setPayload(contractService.findByCodeAndStatus(code, status));
+        contractDtoList.add(contractService.findByCodeAndStatus(code, status));
+        return Response.ok().setPayload(contractDtoList);
     }
 
     @GetMapping("/list")

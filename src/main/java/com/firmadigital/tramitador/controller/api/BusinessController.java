@@ -38,6 +38,11 @@ public class BusinessController {
         return Response.ok().setPayload(businessService.findBusinessById(businessId));
     }
 
+    @GetMapping("/findinfo/{id}")
+    public Response findBusinessInfo(@PathVariable("id") Long customerId) {
+        return Response.ok().setPayload(businessService.findInfoByCustomerId(customerId));
+    }
+
     @GetMapping("/findcustomer/{id}")
     public Response findByCustomerId(@PathVariable("id") Long customerId) {
         return Response.ok().setPayload(businessService.findByCustomerId(customerId));

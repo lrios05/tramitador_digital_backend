@@ -2,8 +2,10 @@ package com.firmadigital.tramitador.service.customer;
 
 import com.firmadigital.tramitador.dto.mapper.BusinessMapper;
 import com.firmadigital.tramitador.dto.mapper.CustomerMapper;
+import com.firmadigital.tramitador.dto.mapper.views.CustomerInfoMapper;
 import com.firmadigital.tramitador.dto.model.customer.BusinessDto;
 import com.firmadigital.tramitador.dto.model.customer.CustomerDto;
+import com.firmadigital.tramitador.dto.model.views.CustomerInfoDto;
 import com.firmadigital.tramitador.exception.EntityType;
 import com.firmadigital.tramitador.exception.ExceptionManager;
 import com.firmadigital.tramitador.exception.ExceptionType;
@@ -47,6 +49,17 @@ public class CustomerServiceImpl implements CustomerService{
         }
 
         throw exception(CUSTOMER, ENTITY_NOT_FOUND, customerId.toString());
+    }
+
+    @Override
+    public CustomerInfoDto findCustomerInfoById(Long id) {
+        Optional<Customer> customer = customerRepository.findById(id);
+
+        if (customer.isPresent()) {
+            return CustomerInfoMapper.toCustomerInfoDto(customer.get());
+        }
+
+        throw exception(CUSTOMER, ENTITY_NOT_FOUND, id.toString());
     }
 
     @Transactional

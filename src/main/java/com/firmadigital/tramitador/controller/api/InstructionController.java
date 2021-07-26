@@ -4,30 +4,33 @@ import com.firmadigital.tramitador.controller.request.InstructionRequest;
 import com.firmadigital.tramitador.dto.model.tracking.InstructionDto;
 import com.firmadigital.tramitador.dto.response.Response;
 import com.firmadigital.tramitador.service.tracking.InstructionService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/tracking")
+@RequestMapping("/api/followup")
 @CrossOrigin(origins = "*")
 public class InstructionController {
 
-    @Autowired
-    private InstructionService instructionService;
+    private final InstructionService instructionService;
 
-    @GetMapping("/find/{id}")
+    public InstructionController(InstructionService instructionService) {
+        this.instructionService = instructionService;
+    }
+
+    @GetMapping("/findinstruction/{id}")
     public Response findInstruction(@PathVariable("id") Long instructionId) {
         return Response.ok().setPayload(instructionService.findById(instructionId));
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listinstructions")
     public Response listAllInstructions() {
         return Response.ok().setPayload(instructionService.findAll());
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createinstruction")
     public Response createInstruction(@Valid  @RequestBody InstructionRequest instructionRequest){
 
         InstructionDto instructionDto = new InstructionDto()

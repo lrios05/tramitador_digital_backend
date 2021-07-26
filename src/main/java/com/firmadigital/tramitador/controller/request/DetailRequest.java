@@ -1,9 +1,7 @@
 package com.firmadigital.tramitador.controller.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.firmadigital.tramitador.dto.model.tracking.InstructionDto;
-import com.firmadigital.tramitador.dto.model.tracking.NoteDto;
-import com.firmadigital.tramitador.dto.model.user.UserDto;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +20,8 @@ public class DetailRequest {
     private String comment;
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String priority;
+    @NotEmpty(message = "{constraints.NotEmpty.message}")
+    private Date deadLine;
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private Long fromUserId;
     @NotEmpty(message = "{constraints.NotEmpty.message}")

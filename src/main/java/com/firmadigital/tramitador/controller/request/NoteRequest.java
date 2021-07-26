@@ -5,10 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.exception.DataException;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -16,9 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NoteRequest {
-
-    @NotEmpty(message = "{constraints.NotEmpty.message}")
-    private Date deadLine;
 
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String subject;
